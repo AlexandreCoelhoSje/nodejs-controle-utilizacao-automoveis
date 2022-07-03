@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity("car")
-export class Car {
+@Entity("vehicle")
+export class Vehicle {
 
     @PrimaryGeneratedColumn()
-    readonly id?: number;
+    id: number;
 
     @Column()
     license_plate: string;

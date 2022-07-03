@@ -1,7 +1,7 @@
 {
   "name": "control-use-cars",
   "version": "1.0.0",
-  "description": "Web system to control the use of a company's cars",
+  "description": "Web system to control the use of a company's vehicles",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "test": "jest",
