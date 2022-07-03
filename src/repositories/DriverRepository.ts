@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Like, Repository } from "typeorm";
 import { Driver } from "../entities/Driver";
 import { AppDataSource } from "../database/data-source";
 import { IDriverRepository } from "../interfaces/repositories/IDriverRepository";
@@ -14,7 +14,9 @@ export class DriverRepository implements IDriverRepository {
 
     async list(name?: string): Promise<Driver[]> {
 
-        return await this.driverRepository.find({ where: { name } });
+        return await this.driverRepository.find({
+            where: name ? { name: Like("%" + name + "%") } : undefined
+        });
     }
 
     async detail(id: number): Promise<Driver> {

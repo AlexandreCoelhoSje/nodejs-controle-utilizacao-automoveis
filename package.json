@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Web system to control the use of a company's vehicles",
   "scripts": {
-    "dev": "ts-node-dev src/server.ts",
+    "dev": "ts-node-dev src/index.ts",
     "test": "jest",
     "typeorm": " ts-node-dev  node_modules/typeorm/cli.js"
   },
