@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-function handleRequestError(err: Error, request: Request, response: Response, next: NextFunction) {
+export function handleRequestError(err: Error, request: Request, response: Response, next: NextFunction) {
 
     if (err instanceof Error) {
         return response.status(400).json({ 
@@ -13,5 +13,3 @@ function handleRequestError(err: Error, request: Request, response: Response, ne
         message: "Internal Server Error"
     });
 }
-
-export default handleRequestError
