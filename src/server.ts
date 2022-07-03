@@ -14,6 +14,8 @@ app.use(router);
 
 app.use(handleRequestError);
 
-app.listen(3000, () => console.log('server is running again'));
+//const server = app.listen(3000, () => console.log('server is running again'));
+
+//export { app, server }
 
 export { app }
