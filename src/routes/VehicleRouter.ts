@@ -8,7 +8,7 @@ export function VehicleRouter(router: Router) {
     const vehicleController = new VehicleController();
 
     router.get("/vehicle",
-        query("brand").isAlphanumeric().optional().trim(),
+        query("brand").optional().trim(),
         query("color").optional().trim(),
         ensureValidation,
         vehicleController.list

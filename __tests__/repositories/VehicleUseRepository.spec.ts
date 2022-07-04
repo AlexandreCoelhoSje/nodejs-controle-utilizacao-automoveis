@@ -99,7 +99,7 @@ describe("test VehicleUseRepository", () => {
 
         const vehicleUseRepository = new VehicleUseRepository();
 
-        const driverNotAvailable = await vehicleUseRepository.checkDriverAvailable(1);
+        const driverNotAvailable = await vehicleUseRepository.checkDriverBusy(1);
 
         expect(driverNotAvailable).toBeNull();
     });

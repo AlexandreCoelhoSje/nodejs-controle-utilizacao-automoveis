@@ -83,7 +83,7 @@ describe("Test DriverController", () => {
             .send();
 
         expect(testRequest.status).toBe(400);
-        expect(testRequest.body.error).toMatch(/driver not found/);
+        expect(testRequest.body.error).toMatch("driver not found");
     });
 
     it("request to create drivers successfully", async () => {

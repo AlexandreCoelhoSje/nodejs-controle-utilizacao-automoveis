@@ -32,6 +32,23 @@ describe("test VehicleRepository", () => {
         expect(newVehicle).toHaveProperty("id");
     });
 
+    it("List vehicle with filter", async () => {
+
+        const driverRepository = new VehicleRepository();
+
+        //filter with return
+        const driversFound = await driverRepository.list("BMW", "black");
+
+        expect(driversFound.length).toBe(1);
+        expect(driversFound[0].brand).toBe("BMW");
+        expect(driversFound[0].color).toBe("black");
+
+        //no return filter
+        const drivers = await driverRepository.list("Not Exists");
+
+        expect(drivers.length).toBe(0);
+    });
+
     it("List vehicle", async () => {
 
         const vehicleRepository = new VehicleRepository();

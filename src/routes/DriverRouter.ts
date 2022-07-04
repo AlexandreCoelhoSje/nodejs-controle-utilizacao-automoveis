@@ -8,7 +8,7 @@ export function DriverRouter(router: Router) {
     const driverController = new DriverController();
 
     router.get("/driver",
-        query("name").isAlphanumeric().optional().trim(),
+        query("name").optional().trim(),
         ensureValidation,
         driverController.list
     );

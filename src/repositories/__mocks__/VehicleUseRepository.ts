@@ -58,7 +58,7 @@ export class VehicleUseRepository implements IVehicleUseRepository {
         });
     }
 
-    async checkDriverAvailable(driverId: number): Promise<VehicleUse> {
+    async checkDriverBusy(driverId: number): Promise<VehicleUse> {
 
         return new Promise((resolve, reject) => {
 

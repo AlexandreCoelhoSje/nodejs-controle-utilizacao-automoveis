@@ -1,5 +1,5 @@
 {
-  "name": "control-use-cars",
+  "name": "vehicle-use-control",
   "version": "1.0.0",
   "description": "Web system to control the use of a company's vehicles",
   "scripts": {

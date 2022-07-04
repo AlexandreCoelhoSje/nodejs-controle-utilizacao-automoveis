@@ -8,9 +8,9 @@ export interface IVehicleUseRepository {
 
     create: (vehicleUse: VehicleUse) => Promise<VehicleUse>;
 
-    checkDriverAvailable(driverId: number): Promise<VehicleUse>;
-
     checkVehicleUse(vehicleId: number): Promise<VehicleUse>;
+    
+    checkDriverBusy(driverId: number): Promise<VehicleUse>;
 
     update: (vehicleUse: VehicleUse) => Promise<VehicleUse>;
 }

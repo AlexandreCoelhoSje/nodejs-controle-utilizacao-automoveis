@@ -7,6 +7,7 @@ export class VehicleController {
        
         const vehicleService = new VehicleService();
 
+        //checks if filter parameters have been assigned
         const brand = request.query.brand ? request.query.brand.toString() : undefined;
         const color = request.query.color ? request.query.color.toString() : undefined;
        

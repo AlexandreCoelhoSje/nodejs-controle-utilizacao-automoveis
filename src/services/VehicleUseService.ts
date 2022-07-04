@@ -1,7 +1,7 @@
 import { VehicleUse } from "../entities/VehicleUse";
 import { VehicleRepository } from "../repositories/VehicleRepository";
 import { VehicleUseRepository } from "../repositories/VehicleUseRepository";
-import { DriverRepository } from "../repositories/__mocks__/DriverRepository";
+import { DriverRepository } from "../repositories/DriverRepository";
 
 interface IVehicleUseRequest {
     id?: number;
@@ -41,15 +41,15 @@ export class VehicleUseService {
             throw new Error("vehicle not found");
 
         //A vehicle can only be used by one driver at a time
-        const vehicleInUse = await this.checkVehicleUse(vehicleId);
+        const vehicleIsFree = await this.checkVehicleFree(vehicleId);
 
-        if (vehicleInUse)
+        if (!vehicleIsFree)
             throw new Error("the vehicle is in use");
 
         //A driver who is already using a car cannot use another car at the same time
-        const driverAvailable = await this.checkDriverAvailable(driverId);
+        const driverIsFree = await this.checkDriverFree(driverId);
 
-        if (driverAvailable)
+        if (!driverIsFree)
             throw new Error("the driver is already using another vehicle");
 
         const vehicleUse = new VehicleUse();
@@ -77,17 +77,27 @@ export class VehicleUseService {
         return await this.vehicleUseRepository.update(vehicleUseFound);
     }
 
-    async checkVehicleUse(vehicleId: number): Promise<boolean> {
+    /**
+     * Checks if the specified vehicle is available
+     * @param vehicleId 
+     * @returns true if TRUE vehicle is available or FALSE if the vehicle is not available
+     */
+    async checkVehicleFree(vehicleId: number): Promise<boolean> {
 
-        const vehicleFound = await this.vehicleUseRepository.checkVehicleUse(vehicleId);
+        const vehicleIsBusy = await this.vehicleUseRepository.checkVehicleUse(vehicleId);
 
-        return vehicleFound ? true : false;
+        return vehicleIsBusy ? false : true;
     }
 
-    async checkDriverAvailable(driverId: number): Promise<boolean> {
+    /**
+     * Checks if the specified driver is available
+     * @param driverId 
+     * @returns true if TRUE driver is available or FALSE if the driver is not available
+     */
+    async checkDriverFree(driverId: number): Promise<boolean> {
 
-        const vehicleFound = await this.vehicleUseRepository.checkDriverAvailable(driverId);
+        const driverIsBusy = await this.vehicleUseRepository.checkDriverBusy(driverId);
 
-        return vehicleFound ? true : false;
+        return driverIsBusy ? false : true;
     }
 }
