@@ -7,7 +7,8 @@ export class DriverController {
 
         const driverService = new DriverService();
 
-        let name = request.query.name ? request.query.name.toString() : undefined;
+        //checks if the filter parameter has been assigned
+        const name = request.query.name ? request.query.name.toString() : undefined;
 
         const drivers = await driverService.list({ name });
 

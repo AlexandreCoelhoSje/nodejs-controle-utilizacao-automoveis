@@ -15,8 +15,6 @@ describe("test VehicleRepository", () => {
             await AppDataSource.dropDatabase();
             await AppDataSource.runMigrations();
 
-            console.log("database in memory has been initialized");
-
         }).catch(error => console.log(error));
     });   
     
@@ -26,12 +24,29 @@ describe("test VehicleRepository", () => {
 
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);
 
         expect(newVehicle).toHaveProperty("id");
+    });
+
+    it("List vehicle with filter", async () => {
+
+        const driverRepository = new VehicleRepository();
+
+        //filter with return
+        const driversFound = await driverRepository.list("BMW", "black");
+
+        expect(driversFound.length).toBe(1);
+        expect(driversFound[0].brand).toBe("BMW");
+        expect(driversFound[0].color).toBe("black");
+
+        //no return filter
+        const drivers = await driverRepository.list("Not Exists");
+
+        expect(drivers.length).toBe(0);
     });
 
     it("List vehicle", async () => {
@@ -62,16 +77,16 @@ describe("test VehicleRepository", () => {
         //create vehicle
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);
 
         //update vehicle
-        const vehicleUpdated = await vehicleRepository.update({ ...newVehicle, brand: "MBW Edited", license_plate: "MHY-2023", color: "blue" });
+        const vehicleUpdated = await vehicleRepository.update({ ...newVehicle, brand: "MBW Edited", licensePlate: "MHY-2023", color: "blue" });
 
         expect(vehicleUpdated.brand).toBe("MBW Edited");
-        expect(vehicleUpdated.license_plate).toBe("MHY-2023");
+        expect(vehicleUpdated.licensePlate).toBe("MHY-2023");
         expect(vehicleUpdated.color).toBe("blue");
     });
 
@@ -82,7 +97,7 @@ describe("test VehicleRepository", () => {
         //create vehicle
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);

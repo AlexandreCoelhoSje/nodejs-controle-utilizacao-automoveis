@@ -16,6 +16,26 @@ describe("test VehicleService", () => {
         expect(list.pop()).toBeInstanceOf(Vehicle);
     });
 
+    it("list vehicle with filter", async () => {
+
+        const driverService = new VehicleService();
+
+        const list = await driverService.list("BMW", "black");
+
+        expect(list.length).toBe(1);
+        expect(list[0].brand).toBe("BMW");
+        expect(list[0].color).toBe("black");
+    });
+
+    it("list vehicle with filters returning empty list", async () => {
+
+        const driverService = new VehicleService();
+
+        const emptyList = await driverService.list("Not exist");
+
+        expect(emptyList.length).toBe(0);
+    });
+
     it("detail vehicle", async () => {
 
         const vehicleService = new VehicleService();
@@ -23,6 +43,13 @@ describe("test VehicleService", () => {
         const vehicle = await vehicleService.detail(1);
 
         expect(vehicle.id).toBe(1);
+    });
+
+    it("try to detail vehicle that does not exist", async () => {
+
+        const driverService = new VehicleService();
+               
+        expect(driverService.detail(0)).rejects.toThrow("vehicle not found");
     });
 
     it("create vehicle", async () => {
@@ -54,7 +81,7 @@ describe("test VehicleService", () => {
         const vehicleUpdated = await vehicleService.update(vehicle);
 
         expect(vehicleUpdated.brand).toBe("BMW - Edited");
-        expect(vehicleUpdated.license_plate).toBe("MHY-2023");
+        expect(vehicleUpdated.licensePlate).toBe("MHY-2023");
         expect(vehicleUpdated.color).toBe("white");
     });
 

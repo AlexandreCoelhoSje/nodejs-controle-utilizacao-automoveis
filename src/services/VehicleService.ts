@@ -16,9 +16,9 @@ export class VehicleService {
         this.vehicleRepository = new VehicleRepository();
     }
 
-    async list(): Promise<Vehicle[]> {
+    async list(brand?: string, color?: string): Promise<Vehicle[]> {
 
-        return await this.vehicleRepository.list();
+        return await this.vehicleRepository.list(brand, color);
     }
 
     async detail(id: number): Promise<Vehicle> {
@@ -36,7 +36,7 @@ export class VehicleService {
 
         const vehicle = new Vehicle();
         vehicle.brand = brand;
-        vehicle.license_plate = licensePlate;
+        vehicle.licensePlate = licensePlate;
         vehicle.color = color;
 
         return await this.vehicleRepository.create(vehicle);
@@ -52,7 +52,7 @@ export class VehicleService {
 
         //update vehicle
         vehicleFound.brand = brand;
-        vehicleFound.license_plate = licensePlate;
+        vehicleFound.licensePlate = licensePlate;
         vehicleFound.color = color;
 
         //save changes

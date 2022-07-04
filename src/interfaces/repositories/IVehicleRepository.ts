@@ -2,7 +2,7 @@ import { Vehicle } from "../../entities/Vehicle";
 
 export interface IVehicleRepository {
 
-    list: () => Promise<Vehicle[]>;
+    list: (brand: string, color: string) => Promise<Vehicle[]>;
 
     detail: (id: number) => Promise<Vehicle>;
 

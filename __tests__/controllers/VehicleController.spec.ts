@@ -5,7 +5,6 @@ import request from "supertest"
 
 import { app } from "../../src/server"
 import { AppDataSource } from "../../src/database"
-import { Vehicle } from "../../src/entities/Vehicle";
 import { VehicleService } from "../../src/services/VehicleService";
 
 describe("Test VehicleController", () => {
@@ -20,15 +19,9 @@ describe("Test VehicleController", () => {
 
             const vehicleService = new VehicleService();
 
-            const vehicle = {
-                brand: "BMW",
-                licensePlate: "MHY-2022",
-                color: "black"
-            };
-
-            await vehicleService.create(vehicle);
-
-            console.log("database in memory has been initialized");
+            await vehicleService.create({ brand: "BMW", licensePlate: "Default-2022", color: "black" });
+            await vehicleService.create({ brand: "BMW", licensePlate: "Update-2022", color: "silver" });
+            await vehicleService.create({ brand: "BMW", licensePlate: "Delete-2022", color: "white" });
 
         }).catch(error => console.log(error));
     });
@@ -40,6 +33,35 @@ describe("Test VehicleController", () => {
             .send();
 
         expect(testRequest.status).toBe(200);
+    });
+
+    it("list vehicle with filter", async () => {
+
+        const testRequest = await request(app)
+            .get("/vehicle")
+            .query({
+                brand: "BMW",
+                color: "black"
+            })
+            .send();
+
+        expect(testRequest.status).toBe(200);
+        expect(testRequest.body[0].brand).toBe("BMW");
+        expect(testRequest.body[0].color).toBe("black");
+    });
+
+    it("list vehicle with filters returning empty list", async () => {
+
+        const testRequest = await request(app)
+            .get("/vehicle")
+            .query({
+                brand: "Not Exist",
+                color: "Not Exists"
+            })
+            .send();
+
+        expect(testRequest.status).toBe(200);
+        expect(testRequest.body.length).toBe(0);
     });
 
     it("request to recover a vehicle", async () => {
@@ -76,9 +98,9 @@ describe("Test VehicleController", () => {
         const testRequest = await request(app)
             .post("/vehicle")
             .send({
-                "brand": "fiat",
-                "licensePlate": "ADA-1256",
-                "color": "black"
+                brand: "fiat",
+                licensePlate: "ADA-1256",
+                color: "black"
             });
 
         expect(testRequest.status).toBe(201);
@@ -89,9 +111,9 @@ describe("Test VehicleController", () => {
         const testRequest = await request(app)
             .post("/vehicle")
             .send({
-                "brand": "",
-                "licensePlate": "",
-                "color": ""
+                brand: "",
+                licensePlate: "",
+                color: ""
             });
 
         expect(testRequest.status).toBe(400);
@@ -100,34 +122,36 @@ describe("Test VehicleController", () => {
     it("request to update vehicle", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/1")
+            .put("/vehicle")
             .send({
-                "brand": "BMW",
-                "licensePlate": "OOP-5689",
-                "color": "white"
+                id: 2,
+                brand: "BMW",
+                licensePlate: "OOP-5689",
+                color: "white"
             });
 
-        expect(testRequest.status).toBe(200);
+        expect(testRequest.status).toBe(204);
     });
 
     it("request to update vehicle that does not exist", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/0")
+            .put("/vehicle")
             .send({
-                "brand": "BMW",
-                "licensePlate": "OOP-5689",
-                "color": "white"
+                id: 0,
+                brand: "BMW",
+                licensePlate: "OOP-5689",
+                color: "white"
             });
 
         expect(testRequest.status).toBe(400);
-        expect(testRequest.body.error).toMatch(/vehicle not found/);
+        expect(testRequest.body.error).toMatch("vehicle not found");
     });
 
     it("request to update vehicle with wrong parameters", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/1")
+            .put("/vehicle")
             .send();
 
         expect(testRequest.status).toBe(400);
@@ -155,9 +179,9 @@ describe("Test VehicleController", () => {
     it("request to delete vehicle", async () => {
 
         const testRequest = await request(app)
-            .delete("/vehicle/1")
+            .delete("/vehicle/3")
             .send();
 
-        expect(testRequest.status).toBe(200);
+        expect(testRequest.status).toBe(204);
     });
 });

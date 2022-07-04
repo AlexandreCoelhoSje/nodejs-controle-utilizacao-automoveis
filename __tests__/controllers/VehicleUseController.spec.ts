@@ -24,7 +24,7 @@ describe("Test VehicleUseController", () => {
             await driverService.create({ name: "Driver Available" });
             await driverService.create({ name: "Driver Not Available" });
 
-            //Vehicle
+            //Vehicle for test
             const vehicleService = new VehicleService();
 
             await vehicleService.create({ brand: "Vehicle Available", licensePlate: "MHY-2022", color: "black" });

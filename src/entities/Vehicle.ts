@@ -7,8 +7,8 @@ export class Vehicle {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    license_plate: string;
+    @Column({name: "license_plate"})
+    licensePlate: string;
 
     @Column()
     color: string;
@@ -19,9 +19,9 @@ export class Vehicle {
     @OneToMany(() => VehicleUse, (vehicleUse) => vehicleUse.vehicle)
     usedVehicles: VehicleUse[];
 
-    @CreateDateColumn()
-    created_at?: Date;
+    @CreateDateColumn({name: "created_at"})
+    createdAt?: Date;
 
-    @UpdateDateColumn()
-    updated_at?: Date;
+    @UpdateDateColumn({name: "updated_at"})
+    updatedAt?: Date;
 }

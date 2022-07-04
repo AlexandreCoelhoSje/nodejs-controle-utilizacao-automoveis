@@ -1,6 +1,4 @@
-import { Repository } from "typeorm";
 import { Driver } from "../../entities/Driver";
-import { AppDataSource } from "../../database/data-source";
 import { IDriverRepository } from "../../interfaces/repositories/IDriverRepository";
 
 export class DriverRepository implements IDriverRepository {

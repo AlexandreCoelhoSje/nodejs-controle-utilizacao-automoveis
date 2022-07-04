@@ -20,7 +20,7 @@ export class VehicleUseRepository implements IVehicleUseRepository {
         const vehicle = new Vehicle();
         vehicle.id = 1;
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";        
 
         //create vehicleUse
@@ -58,7 +58,7 @@ export class VehicleUseRepository implements IVehicleUseRepository {
         });
     }
 
-    async checkDriverAvailable(driverId: number): Promise<VehicleUse> {
+    async checkDriverBusy(driverId: number): Promise<VehicleUse> {
 
         return new Promise((resolve, reject) => {
 

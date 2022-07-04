@@ -24,7 +24,7 @@ describe("test VehicleUseRepository", () => {
 
             const vehicle = new Vehicle();
             vehicle.brand = "BMW";
-            vehicle.license_plate = "MHY-2022";
+            vehicle.licensePlate = "MHY-2022";
             vehicle.color = "black";
 
             await vehicleRepository.create(vehicle);
@@ -99,7 +99,7 @@ describe("test VehicleUseRepository", () => {
 
         const vehicleUseRepository = new VehicleUseRepository();
 
-        const driverNotAvailable = await vehicleUseRepository.checkDriverAvailable(1);
+        const driverNotAvailable = await vehicleUseRepository.checkDriverBusy(1);
 
         expect(driverNotAvailable).toBeNull();
     });

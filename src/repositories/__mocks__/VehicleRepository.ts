@@ -1,10 +1,8 @@
-import { Repository } from "typeorm";
 import { Vehicle } from "../../entities/Vehicle";
-import { AppDataSource } from "../../database/data-source";
 import { IVehicleRepository } from "../../interfaces/repositories/IVehicleRepository";
 
 export class VehicleRepository implements IVehicleRepository {
-    
+
     vehicles: Vehicle[];
 
     constructor() {
@@ -14,7 +12,7 @@ export class VehicleRepository implements IVehicleRepository {
         const vehicle1 = new Vehicle();
         vehicle1.id = 1;
         vehicle1.brand = "BMW";
-        vehicle1.license_plate = "MHY-2022";
+        vehicle1.licensePlate = "MHY-2022";
         vehicle1.color = "black";
 
         this.vehicles.push(vehicle1);
@@ -22,15 +20,20 @@ export class VehicleRepository implements IVehicleRepository {
         const vehicle2 = new Vehicle();
         vehicle2.id = 2;
         vehicle2.brand = "BMW";
-        vehicle2.license_plate = "NHY-2022";
+        vehicle2.licensePlate = "NHY-2022";
         vehicle2.color = "white";
 
         this.vehicles.push(vehicle2);
     }
 
-    async list(): Promise<Vehicle[]> {
+    async list(brand: string, color: string): Promise<Vehicle[]> {
 
-        return new Promise((resolve, reject) => resolve(this.vehicles));
+        return new Promise((resolve, reject) => {
+
+            resolve(this.vehicles.filter((item) =>
+                (brand ? item.brand.includes(brand) : true) && (color ? item.color.includes(color) : true)
+            ));
+        });
     }
 
     async detail(id: number): Promise<Vehicle> {
@@ -55,7 +58,7 @@ export class VehicleRepository implements IVehicleRepository {
         const entityToUpdate = this.vehicles.find((current: Vehicle) => vehicle.id == current.id);
 
         entityToUpdate.brand = vehicle.brand;
-        entityToUpdate.license_plate = vehicle.license_plate;
+        entityToUpdate.licensePlate = vehicle.licensePlate;
         entityToUpdate.color = vehicle.color;
 
         return new Promise((resolve, rejects) => resolve(entityToUpdate));
@@ -71,7 +74,7 @@ export class VehicleRepository implements IVehicleRepository {
     }
 
     getID(): number {
-        
+
         return this.vehicles.length + 1;
     }
 }

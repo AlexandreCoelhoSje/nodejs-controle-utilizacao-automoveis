@@ -6,8 +6,12 @@ export class VehicleController {
     async list(request: Request, response: Response) {
        
         const vehicleService = new VehicleService();
+
+        //checks if filter parameters have been assigned
+        const brand = request.query.brand ? request.query.brand.toString() : undefined;
+        const color = request.query.color ? request.query.color.toString() : undefined;
        
-        const vehicles = await vehicleService.list();
+        const vehicles = await vehicleService.list(brand, color);
         
         return response.json(vehicles);
     }
@@ -41,13 +45,11 @@ export class VehicleController {
 
         const vehicleService = new VehicleService();
 
-        const { id } = request.params;
-
-        const { brand, licensePlate, color } = request.body;
+        const { id, brand, licensePlate, color } = request.body;
 
         await vehicleService.update({ id: parseInt(id), brand, licensePlate, color });
 
-        return response.json();
+        return response.status(204).json();
     }
 
     async delete(request: Request, response: Response) {
@@ -58,6 +60,6 @@ export class VehicleController {
         
         await vehicleService.delete(parseInt(id));
 
-        return response.json();
+        return response.status(204).json();
     }
 }

@@ -15,7 +15,9 @@ export class DriverRepository implements IDriverRepository {
     async list(name?: string): Promise<Driver[]> {
 
         return await this.driverRepository.find({
-            where: name ? { name: Like("%" + name + "%") } : undefined
+            where: {
+                name: name ? Like("%" + name + "%") : undefined
+            }
         });
     }
 
