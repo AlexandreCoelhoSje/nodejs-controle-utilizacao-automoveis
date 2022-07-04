@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { VehicleUse } from "./VehicleUse";
 
 @Entity("vehicle")
 export class Vehicle {
@@ -14,6 +15,9 @@ export class Vehicle {
 
     @Column()
     brand: string;    
+
+    @OneToMany(() => VehicleUse, (vehicleUse) => vehicleUse.vehicle)
+    usedVehicles: VehicleUse[];
 
     @CreateDateColumn()
     created_at?: Date;
