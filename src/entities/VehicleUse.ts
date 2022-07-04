@@ -12,16 +12,16 @@ export class VehicleUse {
     startDate: Date;
 
     @Column({ name: "end_date" })
-    endDate: Date;
+    endDate?: Date;
 
     @Column()
     reason: string;
 
     @Column()
-    driverId: string;
+    driverId: number;
 
     @Column()
-    vehicleId: string;
+    vehicleId: number;
 
     @JoinColumn({name: "driverId"})
     @ManyToOne(() => Driver, (driver) => driver.usedVehicles)

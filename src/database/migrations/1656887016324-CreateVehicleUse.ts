@@ -21,7 +21,8 @@ export class CreateVehicleUse1656887016324 implements MigrationInterface {
                     },
                     {
                         name: "end_date",
-                        type: "datetime"                   
+                        type: "datetime" ,
+                        isNullable: true                  
                     },
                     {
                         name: "reason",
