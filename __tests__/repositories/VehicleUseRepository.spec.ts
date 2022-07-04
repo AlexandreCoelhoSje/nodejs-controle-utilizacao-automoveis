@@ -24,7 +24,7 @@ describe("test VehicleUseRepository", () => {
 
             const vehicle = new Vehicle();
             vehicle.brand = "BMW";
-            vehicle.license_plate = "MHY-2022";
+            vehicle.licensePlate = "MHY-2022";
             vehicle.color = "black";
 
             await vehicleRepository.create(vehicle);

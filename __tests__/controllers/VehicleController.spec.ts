@@ -76,9 +76,9 @@ describe("Test VehicleController", () => {
         const testRequest = await request(app)
             .post("/vehicle")
             .send({
-                "brand": "fiat",
-                "licensePlate": "ADA-1256",
-                "color": "black"
+                brand: "fiat",
+                licensePlate: "ADA-1256",
+                color: "black"
             });
 
         expect(testRequest.status).toBe(201);
@@ -89,9 +89,9 @@ describe("Test VehicleController", () => {
         const testRequest = await request(app)
             .post("/vehicle")
             .send({
-                "brand": "",
-                "licensePlate": "",
-                "color": ""
+                brand: "",
+                licensePlate: "",
+                color: ""
             });
 
         expect(testRequest.status).toBe(400);
@@ -100,34 +100,36 @@ describe("Test VehicleController", () => {
     it("request to update vehicle", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/1")
+            .put("/vehicle")
             .send({
-                "brand": "BMW",
-                "licensePlate": "OOP-5689",
-                "color": "white"
+                id: 1,
+                brand: "BMW",
+                licensePlate: "OOP-5689",
+                color: "white"
             });
 
-        expect(testRequest.status).toBe(200);
+        expect(testRequest.status).toBe(204);
     });
 
     it("request to update vehicle that does not exist", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/0")
+            .put("/vehicle")
             .send({
-                "brand": "BMW",
-                "licensePlate": "OOP-5689",
-                "color": "white"
+                id: 0,
+                brand: "BMW",
+                licensePlate: "OOP-5689",
+                color: "white"
             });
 
         expect(testRequest.status).toBe(400);
-        expect(testRequest.body.error).toMatch(/vehicle not found/);
+        expect(testRequest.body.error).toMatch("vehicle not found");
     });
 
     it("request to update vehicle with wrong parameters", async () => {
 
         const testRequest = await request(app)
-            .put("/vehicle/1")
+            .put("/vehicle")
             .send();
 
         expect(testRequest.status).toBe(400);
@@ -158,6 +160,6 @@ describe("Test VehicleController", () => {
             .delete("/vehicle/1")
             .send();
 
-        expect(testRequest.status).toBe(200);
+        expect(testRequest.status).toBe(204);
     });
 });

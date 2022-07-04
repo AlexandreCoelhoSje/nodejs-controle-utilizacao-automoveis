@@ -20,7 +20,7 @@ export class VehicleUseRepository implements IVehicleUseRepository {
         const vehicle = new Vehicle();
         vehicle.id = 1;
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";        
 
         //create vehicleUse

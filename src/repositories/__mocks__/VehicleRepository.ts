@@ -14,7 +14,7 @@ export class VehicleRepository implements IVehicleRepository {
         const vehicle1 = new Vehicle();
         vehicle1.id = 1;
         vehicle1.brand = "BMW";
-        vehicle1.license_plate = "MHY-2022";
+        vehicle1.licensePlate = "MHY-2022";
         vehicle1.color = "black";
 
         this.vehicles.push(vehicle1);
@@ -22,7 +22,7 @@ export class VehicleRepository implements IVehicleRepository {
         const vehicle2 = new Vehicle();
         vehicle2.id = 2;
         vehicle2.brand = "BMW";
-        vehicle2.license_plate = "NHY-2022";
+        vehicle2.licensePlate = "NHY-2022";
         vehicle2.color = "white";
 
         this.vehicles.push(vehicle2);
@@ -55,7 +55,7 @@ export class VehicleRepository implements IVehicleRepository {
         const entityToUpdate = this.vehicles.find((current: Vehicle) => vehicle.id == current.id);
 
         entityToUpdate.brand = vehicle.brand;
-        entityToUpdate.license_plate = vehicle.license_plate;
+        entityToUpdate.licensePlate = vehicle.licensePlate;
         entityToUpdate.color = vehicle.color;
 
         return new Promise((resolve, rejects) => resolve(entityToUpdate));

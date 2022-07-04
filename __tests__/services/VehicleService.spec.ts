@@ -54,7 +54,7 @@ describe("test VehicleService", () => {
         const vehicleUpdated = await vehicleService.update(vehicle);
 
         expect(vehicleUpdated.brand).toBe("BMW - Edited");
-        expect(vehicleUpdated.license_plate).toBe("MHY-2023");
+        expect(vehicleUpdated.licensePlate).toBe("MHY-2023");
         expect(vehicleUpdated.color).toBe("white");
     });
 

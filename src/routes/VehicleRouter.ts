@@ -23,8 +23,8 @@ export function VehicleRouter(router: Router) {
         vehicleController.create
     );
 
-    router.put("/vehicle/:id",
-        param("id").isNumeric(),
+    router.put("/vehicle/",
+        body("id").isNumeric(),
         body("brand").notEmpty().trim(),
         body("licensePlate").notEmpty().trim(),
         body("color").notEmpty().trim(),

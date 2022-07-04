@@ -1,10 +1,10 @@
-import { Repository } from "typeorm";
+import { FindManyOptions, FindOperator, Like, Repository } from "typeorm";
 import { Vehicle } from "../entities/Vehicle";
 import { AppDataSource } from "../database/data-source";
 import { IVehicleRepository } from "../interfaces/repositories/IVehicleRepository";
 
 export class VehicleRepository implements IVehicleRepository {
-    
+
     vehicleRepository: Repository<Vehicle>;
 
     constructor() {
@@ -12,9 +12,14 @@ export class VehicleRepository implements IVehicleRepository {
         this.vehicleRepository = AppDataSource.getRepository(Vehicle);
     }
 
-    async list(): Promise<Vehicle[]> {
+    async list(brand?: string, color?: string): Promise<Vehicle[]> {
 
-        return await this.vehicleRepository.find();
+        return await this.vehicleRepository.find({
+            where: {
+                brand: brand ? Like("%" + brand + "%") : undefined,
+                color: color ? Like("%" + color + "%") : undefined
+            }
+        });
     }
 
     async detail(id: number): Promise<Vehicle> {

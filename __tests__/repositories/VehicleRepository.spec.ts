@@ -26,7 +26,7 @@ describe("test VehicleRepository", () => {
 
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);
@@ -62,16 +62,16 @@ describe("test VehicleRepository", () => {
         //create vehicle
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);
 
         //update vehicle
-        const vehicleUpdated = await vehicleRepository.update({ ...newVehicle, brand: "MBW Edited", license_plate: "MHY-2023", color: "blue" });
+        const vehicleUpdated = await vehicleRepository.update({ ...newVehicle, brand: "MBW Edited", licensePlate: "MHY-2023", color: "blue" });
 
         expect(vehicleUpdated.brand).toBe("MBW Edited");
-        expect(vehicleUpdated.license_plate).toBe("MHY-2023");
+        expect(vehicleUpdated.licensePlate).toBe("MHY-2023");
         expect(vehicleUpdated.color).toBe("blue");
     });
 
@@ -82,7 +82,7 @@ describe("test VehicleRepository", () => {
         //create vehicle
         const vehicle = new Vehicle();
         vehicle.brand = "BMW";
-        vehicle.license_plate = "MHY-2022";
+        vehicle.licensePlate = "MHY-2022";
         vehicle.color = "black";
 
         const newVehicle = await vehicleRepository.create(vehicle);
