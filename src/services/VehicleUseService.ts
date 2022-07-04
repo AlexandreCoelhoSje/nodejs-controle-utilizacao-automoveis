@@ -70,6 +70,10 @@ export class VehicleUseService {
         if (!vehicleUseFound)
             throw new Error("register not found");
 
+        //check if end date must be greater than start date
+        if (vehicleUseFound.startDate > new Date(endDate)) 
+            throw new Error("End date must be greater than start date");
+
         //update vehicleUse
         vehicleUseFound.endDate = endDate;
 

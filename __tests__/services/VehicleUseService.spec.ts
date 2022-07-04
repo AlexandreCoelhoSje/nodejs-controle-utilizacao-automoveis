@@ -109,6 +109,18 @@ describe("test VehicleUseService", () => {
         expect(vehicleUseUpdated.endDate).toBe(vehicleUse.endDate);
     });
 
+    it("end use vehicleUse with end date less than start date", async () => {
+
+        const vehicleUseService = new VehicleUseService();
+
+        const vehicleUse = {
+            id: 1,
+            endDate: new Date('2000-01-01'),
+        };
+
+        expect(vehicleUseService.endUse(vehicleUse)).rejects.toThrow("End date must be greater than start date");
+    });
+
     it("try to end use vehicle that does not exist", async () => {
 
         const vehicleUseService = new VehicleUseService();
