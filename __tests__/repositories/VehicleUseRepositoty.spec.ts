@@ -35,7 +35,7 @@ describe("test VehicleUseRepository", () => {
             const driver = new Driver();
             driver.name = "Paul Walker";
 
-            const newDriver = await driverRepository.create(driver);
+            await driverRepository.create(driver);
 
         }).catch(error => console.log(error));
     });
@@ -84,5 +84,23 @@ describe("test VehicleUseRepository", () => {
         const vehicleUseUpdated = await vehicleUseRepository.update({ ...newVehicleUse, endDate: new Date() });
 
         expect(vehicleUseUpdated.endDate).not.toBeNull();
+    });
+
+    it("check vehicle is in use", async () => {
+
+        const vehicleUseRepository = new VehicleUseRepository();
+
+        const vehicleNotInUse = await vehicleUseRepository.checkVehicleUse(1);
+
+        expect(vehicleNotInUse).toBeNull();
+    });
+
+    it("check driver is in use", async () => {
+
+        const vehicleUseRepository = new VehicleUseRepository();
+
+        const driverNotAvailable = await vehicleUseRepository.checkDriverAvailable(1);
+
+        expect(driverNotAvailable).toBeNull();
     });
 });
