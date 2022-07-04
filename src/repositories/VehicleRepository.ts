@@ -1,4 +1,4 @@
-import { FindManyOptions, FindOperator, Like, Repository } from "typeorm";
+import { Like, Repository } from "typeorm";
 import { Vehicle } from "../entities/Vehicle";
 import { AppDataSource } from "../database/data-source";
 import { IVehicleRepository } from "../interfaces/repositories/IVehicleRepository";

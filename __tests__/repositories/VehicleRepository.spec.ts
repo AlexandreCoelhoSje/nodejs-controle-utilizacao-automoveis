@@ -15,8 +15,6 @@ describe("test VehicleRepository", () => {
             await AppDataSource.dropDatabase();
             await AppDataSource.runMigrations();
 
-            console.log("database in memory has been initialized");
-
         }).catch(error => console.log(error));
     });   
     

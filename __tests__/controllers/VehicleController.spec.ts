@@ -5,7 +5,6 @@ import request from "supertest"
 
 import { app } from "../../src/server"
 import { AppDataSource } from "../../src/database"
-import { Vehicle } from "../../src/entities/Vehicle";
 import { VehicleService } from "../../src/services/VehicleService";
 
 describe("Test VehicleController", () => {
@@ -27,8 +26,6 @@ describe("Test VehicleController", () => {
             };
 
             await vehicleService.create(vehicle);
-
-            console.log("database in memory has been initialized");
 
         }).catch(error => console.log(error));
     });

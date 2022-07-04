@@ -1,6 +1,4 @@
-import { Repository } from "typeorm";
 import { Vehicle } from "../../entities/Vehicle";
-import { AppDataSource } from "../../database/data-source";
 import { IVehicleRepository } from "../../interfaces/repositories/IVehicleRepository";
 
 export class VehicleRepository implements IVehicleRepository {
