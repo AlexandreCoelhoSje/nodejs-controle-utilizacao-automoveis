@@ -98,6 +98,19 @@ describe("Test VehicleUseController", () => {
         expect(testRequest.status).toBe(204);
     });
 
+    it("request to terminate the use of a vehicle with end date less than start date", async () => {
+
+        const testRequest = await request(app)
+            .put("/vehicleUse")
+            .send({
+                id: 1,
+                endDate: "2000-01-01"
+            });
+
+        expect(testRequest.status).toBe(400);
+        expect(testRequest.body.error).toMatch("End date must be greater than start date");
+    });
+
     it("request to terminate the use of a vehicle with wrong param", async () => {
 
         const testRequest = await request(app)
