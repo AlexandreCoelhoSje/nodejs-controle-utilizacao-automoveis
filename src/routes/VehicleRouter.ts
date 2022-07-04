@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { param, body } from "express-validator"
+import { param, query, body } from "express-validator"
 import { VehicleController } from "../controllers/VehicleController"
 import { ensureValidation } from "../middlewares/ensureValidation"
 
@@ -7,7 +7,12 @@ export function VehicleRouter(router: Router) {
 
     const vehicleController = new VehicleController();
 
-    router.get("/vehicle", vehicleController.list);
+    router.get("/vehicle",
+        query("brand").isAlphanumeric().optional().trim(),
+        query("color").optional().trim(),
+        ensureValidation,
+        vehicleController.list
+    );
 
     router.get("/vehicle/:id",
         param("id").isNumeric(),

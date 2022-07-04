@@ -1,5 +1,5 @@
-import { query, Router } from "express";
-import { param, body, check } from "express-validator"
+import { Router } from "express";
+import { param, body, query } from "express-validator"
 import { DriverController } from "../controllers/DriverController"
 import { ensureValidation } from "../middlewares/ensureValidation"
 
@@ -7,7 +7,11 @@ export function DriverRouter(router: Router) {
 
     const driverController = new DriverController();
 
-    router.get("/driver", driverController.list);
+    router.get("/driver",
+        query("name").isAlphanumeric().optional().trim(),
+        ensureValidation,
+        driverController.list
+    );
 
     router.get("/driver/:id",
         param("id").isNumeric(),
